@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+vector<vector<long long int>> printPascal(int n) {
+    vector<vector<long long int>> pascalTriangle(n);
+
+    // Iterate through each row
+    for (int i = 0; i < n; ++i) {
+        pascalTriangle[i].resize(i + 1);
+        pascalTriangle[i][0] = pascalTriangle[i][i] = 1; // First and last elements are 1
+
+        // Calculate the inner elements of the row
+        for (int j = 1; j < i; ++j) {
+            pascalTriangle[i][j] = pascalTriangle[i - 1][j - 1] + pascalTriangle[i - 1][j];
+        }
+    }
+
+    return pascalTriangle;
+}
+
+int main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        int N;
+        cin >> N;
+
+        vector<vector<long long int>> result = printPascal(N);
+
+        for (const auto& row : result) {
+            for (long long int num : row) {
+                cout << num << " ";
+            }
+            cout << endl;
+        }
+        cout << endl; // Separate test cases with a newline
+    }
+
+    return 0;
+}
